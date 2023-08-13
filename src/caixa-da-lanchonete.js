@@ -2,6 +2,11 @@ class CaixaDaLanchonete {
 
     calcularValorDaCompra(metodoDePagamento, itens) {
 
+        // OUTRAS REGRAS: "Não há itens no carrinho de compra!"
+        if (itens.length === 0) {
+            return "Não há itens no carrinho de compra!"
+        }
+
         const cardapio = [
             {codigo: "cafe", descricao: "Café", valor: 3.00},
             {codigo: "chantily", descricao: "Chantily (extra do Café)", valor: 1.50},
@@ -14,12 +19,19 @@ class CaixaDaLanchonete {
         ];
         // const formaDePagamento = ['dinheiro', 'credito', 'debito'];
 
+
         let total = 0;
         for (const iten of itens) {
             const [codigo, quantidade] = iten.split(',');
             const itemDoCardapio = cardapio.find(item => item.codigo === codigo);
             if (!itemDoCardapio) {
+                // OUTRAS REGRAS: "Item inválido!"
                 return "Item inválido!";
+            }
+            if (quantidade < 1) {
+                // OUTRAS REGRAS: "QUANTIDADE INVÁLIDA!"
+                // NO CASO DE USO, ESTA DEFINIDO PARA QUANTIDADE == 0, PORÉM, NÃO FAZ SENTIDO PARA CASOS NEGATIVOS
+                return "Quantidade inválida!";
             }
 
             total += itemDoCardapio.valor * quantidade;
@@ -29,6 +41,7 @@ class CaixaDaLanchonete {
         }else if (metodoDePagamento === 'dinheiro') {
             total = total * 0.95
         }else if (metodoDePagamento !== 'debito') {
+            // OUTRAS REGRAS: "Forma de pagamento inválida!"
             return "Forma de pagamento inválida!";
         }
 
