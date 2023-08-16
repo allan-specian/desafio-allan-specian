@@ -19,8 +19,6 @@ class CaixaDaLanchonete {
             return "Não há itens no carrinho de compra!"
         }
 
-        // const formaDePagamento = ['dinheiro', 'credito', 'debito'];
-
         let total = 0;
         for (const iten of itens) {
             const [codigo, quantidade] = iten.split(',');
@@ -40,7 +38,6 @@ class CaixaDaLanchonete {
             // OUTRAS REGRAS: "Item extra"
             if (itemDoCardapio.tipo === 'extra') {
                 const itemPrincipal = itens.find(item => item.split(',')[0] === itemDoCardapio.principal);
-                // const itemPrincipal = itens.find(item => item.codigo === itemDoCardapio.principal);
                 if (!itemPrincipal) {
                     return "Item extra não pode ser pedido sem o principal";
                 }
@@ -48,6 +45,8 @@ class CaixaDaLanchonete {
 
             total += itemDoCardapio.valor * quantidade;
         }
+
+        // DESCONTOS E TAXAS
         if (metodoDePagamento === 'credito') {
             total = total * 1.03;
         }else if (metodoDePagamento === 'dinheiro') {
@@ -62,6 +61,3 @@ class CaixaDaLanchonete {
 }
 
 export { CaixaDaLanchonete };
-// recebe um valor assim:
-// new CaixaDaLanchonete()
-//   .calcularValorDaCompra('debito', ['cafe,1','chantily,1']);
