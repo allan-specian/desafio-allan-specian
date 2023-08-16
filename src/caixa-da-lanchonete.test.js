@@ -46,6 +46,14 @@ describe('CaixaDaLanchonete', () => {
         ['queijo', 'credito', 'Item extra não pode ser pedido sem o principal', ['queijo,1']],
         ['chantily com outro item', 'credito', 'Item extra não pode ser pedido sem o principal', ['chantily,1', 'sanduiche,1']],
         ['queijo com outro item', 'debito', 'Item extra não pode ser pedido sem o principal', ['cafe,1', 'queijo,1']],
+        // MEUS TESTES COM COMBOS
+        // Combos não são considerados como item principal.
+        ['queijo com combo 1', 'debito', 'Item extra não pode ser pedido sem o principal', ['combo1,1', 'queijo,1']],
+        ['queijo com combo 2', 'credito', 'Item extra não pode ser pedido sem o principal', ['combo2,1', 'queijo,1']],
+        ['chantily com combo 1', 'debito', 'Item extra não pode ser pedido sem o principal', ['combo1,1', 'chantily,1']],
+        ['chantily com combo 2', 'credito', 'Item extra não pode ser pedido sem o principal', ['combo2,1', 'chantily,1']],
+        ['queijo com combo 1 e outro item', 'debito', 'R$ 18,00', ['combo1,1', 'queijo,1', 'sanduiche,1']],
+        ['queijo com combo 1 e outro item', 'debito', 'Item extra não pode ser pedido sem o principal', ['combo1,1', 'queijo,1', 'cafe,1']],
     ])('compra %p em %p deve resultar em %p', (_, formaDePagamento, resultadoEsperado, itens) =>
         validaTeste(formaDePagamento, resultadoEsperado, itens));
 });

@@ -26,15 +26,15 @@ class CaixaDaLanchonete {
             const [codigo, quantidade] = iten.split(',');
             const itemDoCardapio = this.cardapio.find(item => item.codigo === codigo);
 
-            // OUTRAS REGRAS: "Item inválido!"
-            if (!itemDoCardapio) {
-                return "Item inválido!";
-            }
-
             // OUTRAS REGRAS: "QUANTIDADE INVÁLIDA!"
             // NO CASO DE USO, ESTA DEFINIDO PARA QUANTIDADE == 0, PORÉM, TAMBÉM NÃO FAZ SENTIDO PARA CASOS NEGATIVOS
             if (quantidade < 1) {
                 return "Quantidade inválida!";
+            }
+
+            // OUTRAS REGRAS: "Item inválido!"
+            if (!itemDoCardapio) {
+                return "Item inválido!";
             }
 
             // OUTRAS REGRAS: "Item extra"
